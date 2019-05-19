@@ -205,7 +205,7 @@ void change_step()
         }
     }
     view_imgW2(dat1);	//右側ウィンドウに画像を表示する関数を呼び出し
-	printf("successful\n");
+    printf("successful\n");
 }
 
 //線形濃度変換
@@ -231,7 +231,7 @@ void noudo_henkan()
         }
     }
     view_imgW2(dat2);
-	printf("successful\n");
+    printf("successful\n");
 }
 
 //非線形濃度変換
