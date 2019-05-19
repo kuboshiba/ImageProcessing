@@ -262,10 +262,10 @@ void gamma_henkan()
 	scanf("%lf", &gamma);
 
 	for(i=0; i<Isize; i++){
-        for(j=0; j<Jsize; j++){
-            dat4[i][j]=(unsigned char)( 255 * pow( 1.0*dat[i][j]/255, 1/gamma));
-        }
-    }
+        	for(j=0; j<Jsize; j++){
+            		dat4[i][j]=(unsigned char)( 255 * pow( 1.0*dat[i][j]/255, 1/gamma));
+        	}
+    	}
 	view_imgW2(dat4);
 	printf("successful\n");
 }
