@@ -1,0 +1,172 @@
+■ テーマ1：
+  画像を2枚並べて表示するプログラム(theme1-1.c)をダウンロードして実行し，表示・保存が可能か試す．
+
+■ テーマ2：
+  階調変換を行う関数を作成し，実行結果を表示する．以下に参考として手順を示す．
+  1. ボタンの数を1つ増やす．ボタンに関する部分をいくつか変更する必要．
+     - #define Bnum 5 ←この部分はボタンの数を定義している．
+     - 関数event_select内のボタンの描画部分(XDrawImageString)とボタンが押された時のイベント処理を追加する．
+  2. 出力用の2次元配列を用意する（例えばdat1[ ][ ])．
+  3. 階調変換の関数を追加する．
+
+例
+
+void change_step()
+{
+    int i,j,s,v;
+    unsigned char c;
+    printf("Number of steps : ");	//階調数の入力
+    scanf("%d",&s);
+    v=256/s;
+
+    for(i=0;i<Isize;i++){
+        for(j=0;j<Jsize;j++){
+            c=(unsigned char)((dat[i][j]/256.)*s);
+            dat1[i][j]=c*v;
+        }
+    }
+    view_imgW2(dat1);	//右側ウィンドウに画像を表示する関数を呼び出し
+}
+
+
+■ テーマ3：
+  線形濃度変換を行う関数を作成し，実行結果を表示する．以下に参考として手順を示す．
+  
+  入力画像の最大と最小の濃度値の範囲内に変換する場合
+  1. ボタンの数を1つ増やす．
+  2. 出力用の2次元配列を用意する（例えばdat2[ ][ ])．
+  3. 濃度線形変換の関数を追加する．
+
+例
+
+void noudo_henkan()
+{
+    int i,j;
+    unsigned char max,min;
+
+    max=min=dat[0][0];     //最大値と最小値の初期値を設定
+    for(i=0;i<Isize;i++){
+        for(j=0;j<Jsize;j++){
+            if(dat[i][j]>max)                  ;            //画像の最大値を取得
+            if(dat[i][j]<min)                   ;            //画像の最小値を取得
+        }
+    }
+    for(i=0;i<Isize;i++){
+        for(j=0;j<Jsize;j++){
+            if(dat[i][j]<min) dat2[i][j]=     ;          //minより小さいものは０とする．
+            else if(dat[i][j]>max) dat2[i][j]=     ;    //maxより大きいものは２５５とする．
+            else{
+                dat2[i][j]=(unsigned char)(                                      );  //それ以外は，授業中に習った式を．
+            }
+        }
+    }
+    view_imgW2(dat2);
+}
+
+■ テーマ4：
+  線形濃度変換以外の変換式を利用して濃度変換を行う関数を作成し，実行結果を表示する．
+  変換式は何を利用しても構わないが，名前と式はレポート中に記述しておくこと．
+
+
+■ テーマ5：
+  画像全体のヒストグラムを算出する関数を作成し，グラフ化する．
+  なお，グラフ化については画像として出力する方法か，ヒストグラム値をファイルに出力し，グラフ描画ソフトなどを用いて作成し  ても構わない．
+
+
+■ テーマ6：
+  各種フィルタリングを行う関数を作成し，実行結果を表示する．以下に参考として手順を示す．
+  1. ボタンの数を1つ増やす．
+  2. 出力用の2次元配列（例えばfdat[ ][ ]）と，出力画像表示用の2次元配列（例えばdat3[ ][ ]）を用意する．
+     ここで，出力画像は負の値をとる可能性もあるので，fdat[ ][ ]はshort int型で宣言しておく必要がある．
+     また，画像表示は1バイトデータであるので，fdat[ ][ ]の表示用データとしてdat3[ ][ ]を用意する．
+  3. フィルタをグローバル変数の配列で宣言する．フィルタの種類は各自で決めること．
+     int f[3][3]={{ 0,-1, 0},
+                  {-1, 5,-1},
+                  { 0,-1, 0}};
+  4. フィルタリング処理を行う関数を追加する．
+
+例
+
+void filter_operation()
+{
+    int i,j,max,min;
+
+    //初期化
+    for(i=0;i<Isize;i++){
+        for(j=0;j<Jsize;j++){
+            fdat[i][j]=0;
+        }
+    }
+
+  //
+  //     フィルタリング処理 
+  //
+
+//short int型のfdat から最大値と最小値を求め，256階調のデータdat3を作成する．
+    max=min=fdat[1][1];
+    for(i=1;i<Isize-1;i++){
+        for(j=1;j<Jsize-1;j++){
+            if(fdat[i][j]>max) max=fdat[i][j];
+            if(fdat[i][j]<min) min=fdat[i][j];
+        }
+    }
+    for(i=0;i<Isize;i++){
+        for(j=0;j<Jsize;j++){
+            if(fdat[i][j]<min) dat3[i][j]=0;
+            else if(fdat[i][j]>max) dat3[i][j]=255;
+            else{
+                dat3[i][j]=(unsigned char)
+                   ((fdat[i][j]-min)*255./(float)(max-min));
+            }
+        }
+    }
+    view_imgW2(dat3);
+}
+
+
+■ テーマ7：
+  メディアンフィルタ行う関数を作成し，実行結果を表示する．以下に参考として手順を示す．
+  
+  1. ボタンの数を1つ増やす．
+  2. 出力用の2次元配列を用意する（例えばdat4[ ][ ])．
+  3. メディアンの関数を追加する．
+
+例
+
+void median_filter()
+{
+    int i,j;
+    unsigned char sort();
+    for(i=1;i<Isize-1;i++){
+        for(j=1;j<Jsize-1;j++){
+            dat4[i][j]=sort(i,j);
+        }
+    }
+    view_imgW2(dat4);
+}
+
+unsigned char sort(int a, int b)
+{
+    int i,j,k;
+    unsigned char c[9],buf;
+
+    k=0;
+    for(i=a-1;i<=a+1;i++){
+        for(j=b-1;j<=b+1;j++){
+            c[k]=dat[i][j];
+            k++;
+        }
+    }
+    for(j=0;j<9;j++){
+        for(i=0;i<8;i++){
+            if(c[i+1] < c[i]){
+                //
+                //  ソートプログラム
+                //
+            }
+        }
+    }
+    return       ;      //中間値を返す．
+}
+
+
