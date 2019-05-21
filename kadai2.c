@@ -5,15 +5,15 @@
 #include <X11/Xutil.h>
 #include <tiff-4.0.3/libtiff/tiffio.h>
 
-#define Isize 512					//取り扱う画像のサイズX
-#define Jsize Isize					//取り扱う画像のサイズY
-#define Bnum 10						//ボタンの数
-#define Xsize Jsize * 2 + Right + 5 //表示ウィンドウのサイズX
-#define Ysize Isize + 5				//表示ウィンドウのサイズY
-#define Right 100					//表示ウィンドウ内の右側スペースサイズ
+#define Isize 512			//取り扱う画像のサイズX
+#define Jsize Isize			//取り扱う画像のサイズY
+#define Bnum 10				//ボタンの数
+#define Xsize Jsize * 2 + Right + 5	//表示ウィンドウのサイズX
+#define Ysize Isize + 5			//表示ウィンドウのサイズY
+#define Right 100			//表示ウィンドウ内の右側スペースサイズ
 #define BS 100
 #define Fcol 255 | 255 << 8 | 255 << 16
-#define Bcol 128 //ウィンドウの背景色
+#define Bcol 128			//ウィンドウの背景色
 
 Display *d;
 Window Rtw, W, W1, W2, Side, Bt[Bnum];
@@ -26,8 +26,8 @@ unsigned long Dep;
 void init_window(), init_color(), init_image(),
 	event_select();
 
-unsigned char dat[Isize][Jsize];	 //取り扱う画像データ格納用
-unsigned char tiffdat[Isize][Jsize]; //tiff形式で保存する際の画像データ格納用
+unsigned char dat[Isize][Jsize];	//取り扱う画像データ格納用
+unsigned char tiffdat[Isize][Jsize];	//tiff形式で保存する際の画像データ格納用
 
 int buff[Isize * Jsize];
 unsigned char buffer[Isize * Jsize];
@@ -196,14 +196,14 @@ void init_window()
 	Dep = XDefaultDepth(d, 0);
 
 	//windowを作成
-	W = XCreateSimpleWindow(d, Rtw, 0, 0, Xsize, Ysize, 2, Fcol, Bcol);				 //背景ウィンドウ
-	W1 = XCreateSimpleWindow(d, W, 0, 0, Jsize, Isize, 2, Fcol, Bcol);				 //画像表示用ウィンドウ（左側）
-	W2 = XCreateSimpleWindow(d, W, Jsize, 0, Jsize, Isize, 2, Fcol, Bcol);			 //画像表示用ウィンドウ（右側）
-	Side = XCreateSimpleWindow(d, W, Jsize * 2 + 5, 0, Right, Isize, 2, Fcol, Bcol); //サイドウィンドウ
+	W = XCreateSimpleWindow(d, Rtw, 0, 0, Xsize, Ysize, 2, Fcol, Bcol);		//背景ウィンドウ
+	W1 = XCreateSimpleWindow(d, W, 0, 0, Jsize, Isize, 2, Fcol, Bcol);		//画像表示用ウィンドウ（左側）
+	W2 = XCreateSimpleWindow(d, W, Jsize, 0, Jsize, Isize, 2, Fcol, Bcol);		//画像表示用ウィンドウ（右側）
+	Side = XCreateSimpleWindow(d, W, Jsize * 2 + 5, 0, Right, Isize, 2, Fcol, Bcol);//サイドウィンドウ
 	for (i = 0; i < Bnum; i++)
 	{
 		Bt[i] = XCreateSimpleWindow(d, Side, 0, 30 * i, BS, 30, 2, Fcol, Bcol); //ボタンの作成
-		XSelectInput(d, Bt[i], ExposureMask | ButtonPressMask);					//ウィンドウが表示された時orボタンが押された時にXサーバから通知
+		XSelectInput(d, Bt[i], ExposureMask | ButtonPressMask);			//ウィンドウが表示された時orボタンが押された時にXサーバから通知
 	}
 
 	XSelectInput(d, W1, ButtonPressMask);
@@ -285,7 +285,7 @@ void p_tail()
  * 		       M2 : [long dou] class2の平均濃度値
  * 		   sigma2 : [long dou] SIGMA B2
  * 		max_sigma : [long dou] SIGMA B2の最大値
- *  	threshold : [int]      閾値
+ * 		threshold : [int]      閾値
  * 		     hist : [Array]    ヒストグラムの格納先
  * 
  ***************************************************************************************/
@@ -413,9 +413,9 @@ void event_select()
 		{
 		//ウィンドウが表示された時
 		case Expose:
-			XSetForeground(d, Gc, Fcol);					   //前景色の設定
-			XSetBackground(d, Gc, 10);						   //背景色の設定
-			XDrawImageString(d, Bt[0], Gc, 28, 21, "Load", 4); //ボタンへ文字列を描画
+			XSetForeground(d, Gc, Fcol);				//前景色の設定
+			XSetBackground(d, Gc, 10);				//背景色の設定
+			XDrawImageString(d, Bt[0], Gc, 28, 21, "Load", 4);	//ボタンへ文字列を描画
 			XDrawImageString(d, Bt[1], Gc, 28, 21, "ViewW1", 6);
 			XDrawImageString(d, Bt[2], Gc, 28, 21, "ViewW2", 6);
 			XDrawImageString(d, Bt[3], Gc, 28, 21, "Save", 4);
