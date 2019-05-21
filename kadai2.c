@@ -186,7 +186,7 @@ void init_window()
 	//Xサーバとの接続
 	if ((d = XOpenDisplay(NULL)) == NULL)
 	{
-		fprintf(stderr, "�إ����Ф���³�Ǥ��ޤ���\n");
+		fprintf(stderr, "Xサーバに接続できません\n");
 		exit(1);
 	}
 
