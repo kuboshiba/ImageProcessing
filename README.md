@@ -20,8 +20,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <pre>
 $ git clone https://github.com/kuboshiba/ImageProcessing.git
 $ cd ImageProcessing
-$ sudo mv libX11.so.6.3.0 /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
-$ sudo mv libtiff.so.5.2.4 /usr/lib/x86_64-linux-gnu/libtiff.so.5.2.4
+$ sudo cp libX11.so.6.3.0 /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+$ sudo cp libtiff.so.5.2.4 /usr/lib/x86_64-linux-gnu/libtiff.so.5.2.4
 $ ln -s /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0 ./lib/libX11.so
 $ ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.5.2.4 ./lib/libtiff.so
 </pre>
