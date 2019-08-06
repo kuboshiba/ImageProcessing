@@ -158,15 +158,13 @@ float d,dmin;
             d=0;
             for(int ii=0; ii<TI; ii++){ //テンプレート画像との距離値の計算
                 for(int jj=0; jj<TJ; jj++){
-					d += (dat[i+ii][j+jj]-template[ii][jj]) * (dat[i+ii][j+jj]-template[ii][jj]) / 10000.;
-					// printf("%f\n", d);
+		    d += (dat[i+ii][j+jj]-template[ii][jj]) * (dat[i+ii][j+jj]-template[ii][jj]) / 10000.;
                 }
             }
-			d = sqrt(d);
+            d = sqrt(d);
             if(d < dmin){
                 dmin = d;
                 si = i; sj = j;
-				// printf("dmin = %f\n", dmin);
             }
             if(n%syori==0)printf("%d％終了\n",n/syori);
             n++;
@@ -210,7 +208,7 @@ void relation()
 				x = i; y = j;
 			}
 			if(n%syori==0) printf("%d％終了\n",n/syori);
-            n++;
+                        n++;
 		}
 	}
 	printf("（%d, %d）: %f\n", x, y, smax);
