@@ -29,4 +29,5 @@ $ ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.5.2.4 ./lib/libtiff.so
 ## Execution
 <pre>
 $ make [target]
+example) $ make kadai1
 </pre>
